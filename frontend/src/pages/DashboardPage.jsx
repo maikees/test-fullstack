@@ -64,14 +64,15 @@ const DashboardPage = () => {
       // Filtro por Produto
       const productMatch =
           !filters.product ||
-          order.productIds?.some((productId) => productId.toString() === filters.product.toString());
+          order.productIds?.some((productId) => productId._id === filters.product);
 
       // Filtro por Categoria
       const categoryMatch =
           !filters.category ||
           order.productIds?.some((productId) => {
-            const product = products.find((p) => p._id === productId);
-            return product?.categoryIds?.includes(filters.category);
+            // Encontre o produto correspondente no array de produtos
+            const product = products.find((p) => p._id === productId._id || p._id === productId);
+            return product?.categoryIds?.some((categoryIds) => categoryIds._id === filters.category);
           });
 
       return productMatch && categoryMatch;
