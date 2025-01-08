@@ -1,0 +1,33 @@
+# Node.js
+**/node_modules
+
+# dist
+**/dist
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+dist/
+
+# Build artifacts
+build/
+
+# Storybook
+storybook-static/
+
+# Environment files
+.env
+.env.local
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Misc
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+localstack_data/
