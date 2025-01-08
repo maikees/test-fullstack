@@ -61,19 +61,28 @@ const DashboardPage = () => {
   // Filtrar pedidos com base nos filtros selecionados
   const getFilteredOrders = () => {
     return orders.filter((order) => {
-      const categoryMatch =
-          !filters.category || order.categoryIds?.includes(filters.category);
+      // Filtro por Produto
       const productMatch =
-          !filters.product || order.productIds?.includes(filters.product);
-      return categoryMatch && productMatch;
+          !filters.product ||
+          order.productIds?.some((productId) => productId.toString() === filters.product.toString());
+
+      // Filtro por Categoria
+      const categoryMatch =
+          !filters.category ||
+          order.productIds?.some((productId) => {
+            const product = products.find((p) => p._id === productId);
+            return product?.categoryIds?.includes(filters.category);
+          });
+
+      return productMatch && categoryMatch;
     });
   };
 
-  // Atualizar métricas sempre que os filtros mudarem
+  // Atualizar métricas e gráfico sempre que os filtros mudarem
   useEffect(() => {
     const filteredOrders = getFilteredOrders();
     calculateMetrics(filteredOrders);
-  }, [filters]);
+  }, [filters, products, orders]);
 
   const orderDataByMonth = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
