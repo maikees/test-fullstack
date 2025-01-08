@@ -17,16 +17,16 @@ const NavigationMenu = () => {
                     indicatorColor="secondary"
                 >
                     <Tab
-                        label="Products"
-                        value="/products"
-                        component={Link}
-                        to="/products"
-                    />
-                    <Tab
                         label="Categories"
                         value="/categories"
                         component={Link}
                         to="/categories"
+                    />
+                    <Tab
+                        label="Products"
+                        value="/products"
+                        component={Link}
+                        to="/products"
                     />
                     <Tab
                         label="Orders"
